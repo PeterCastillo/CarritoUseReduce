@@ -13,8 +13,12 @@ const ShoppingCart = () => {
 
     }
 
-    const handleDelete = (id) => {
-        dispatch({type:TYPES.REMOVE_TO_CART, payload:id})
+    const handleDelete = (id , all = false) => {
+        if (all) {
+            dispatch({ type: TYPES.REMOVE_ALL, payload: id });
+          } else {
+            dispatch({ type: TYPES.REMOVE_TO_CART, payload: id });
+          }
     }
 
     const handleCleanCart = () => {
@@ -43,7 +47,8 @@ const ShoppingCart = () => {
                             <h4>Producto: {product.name}</h4>
                             <h6>Cantidad: {product.quantity}</h6>
                             <h6>Price: {product.price * product.quantity}</h6>
-                            <button onClick={()=>handleDelete(product.id)}>Eliminar del carrito al carrito</button>
+                            <button onClick={()=>handleDelete(product.id)}>Eliminar uno del carrito al carrito</button>
+                            <button onClick={()=>handleDelete(product.id , true )}>Eliminar del carrito al carrito</button>
                         </div>
                         ): <span>Tu carrito esta vacio</span>}
                     <button onClick={handleCleanCart}>Limpiar carrito</button>
